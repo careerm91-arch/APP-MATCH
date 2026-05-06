@@ -64,10 +64,14 @@ border-radius:10px;
 
 <br>
 
-<button onclick="showResult()">Find Assistive Apps</button>
-
+//<button onclick="showResult()">Find Assistive Apps</button>
+<button onclick="showResult()">🔒 Unlock Assistive Apps</button>
 <div id="result"></div>
-
+<script>
+if(localStorage.getItem("paidUser") !== "yes"){
+console.log("User not paid");
+}
+</script>
 <script>
 let fullAppsList = [];//added new
 // ===== RESULT FUNCTION =====
