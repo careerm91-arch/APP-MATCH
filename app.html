@@ -177,11 +177,10 @@ pbridgeconsultancyprivatelimited.eazypay@icici
 
 <br><br>
 
-<p><b>Enter UTR / Transaction ID:</b></p>
+<p><b>Enter UTR:</b></p>
+<input type="text" id="utr" placeholder="Enter UTR"><br><br>
 
-<input type="text" id="utr" placeholder="Enter UTR number"><br><br>
-
-<button onclick="verifyPayment()">Verify Payment</button>
+<button onclick="submitUTR()">Submit Payment</button>
 
 <p id="paymentStatus" style="color:red;"></p>
 `;
@@ -189,7 +188,6 @@ pbridgeconsultancyprivatelimited.eazypay@icici
 document.getElementById("result").innerHTML = qrHTML;
 
 }
-
 // ===== VERIFY =====
 function verifyPayment(){
 
@@ -216,7 +214,53 @@ localStorage.setItem("paidUser", "yes");
 showResult();
 
 }
+function submitUTR(){
 
+let utr = document.getElementById("utr").value.trim();
+
+if(utr.length < 8){
+document.getElementById("paymentStatus").innerText = "❌ Invalid UTR";
+return;
+}
+
+// Show admin instruction
+document.getElementById("result").innerHTML = `
+<h3>⏳ Payment Submitted</h3>
+
+<p>Your UTR: <b>${utr}</b></p>
+
+<p>📩 Send this UTR to Admin via WhatsApp / Email</p>
+
+<p>After verification, you will receive an approval code</p>
+
+<br>
+
+<input type="text" id="adminCode" placeholder="Enter approval code"><br><br>
+
+<button onclick="verifyAdminCode()">Verify Code</button>
+
+<p id="codeStatus" style="color:red;"></p>
+`;
+
+}
+   function verifyAdminCode(){
+
+let code = document.getElementById("adminCode").value.trim();
+
+// ✅ YOU control this code
+if(code === "APPROVE123"){
+
+localStorage.setItem("paidUser", "yes");
+
+showResult();
+
+}else{
+
+document.getElementById("codeStatus").innerText = "❌ Invalid approval code";
+
+}
+
+}
 </script>
 
 </body>
