@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Assistech Finder</title>
+
+<style>
+body{
+font-family: Arial;
+text-align:center;
+padding:20px;
+background:#f5f5f5;
+}
+
+select, button{
+padding:10px;
+margin:10px;
+font-size:16px;
+}
+
+button{
+background:#007bff;
+color:white;
+border:none;
+border-radius:5px;
+cursor:pointer;
+}
+
+#result{
+margin-top:20px;
+background:white;
+padding:15px;
+border-radius:10px;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2>ASSISTECH FINDER</h2>
+
+<select id="disability">
+<option>Vision</option>
+<option>Hearing</option>
+<option>Mobility</option>
+<option>Speech</option>
+<option>Cognitive</option>
+</select>
+
+<br>
+
+<select id="task">
+<option>Reading</option>
+<option>Communication</option>
+<option>Navigation</option>
+<option>Phone Control</option>
+<option>Learning</option>
+</select>
+
+<br>
+
+<button onclick="startVoice()">🎤 Speak</button>
+<p id="voiceStatus"></p>
+
+<br>
+
+<button onclick="showResult()">Find Assistive Apps</button>
+
+<div id="result"></div>
+
+<script>
+let fullAppsList = [];//added new
+// ===== RESULT FUNCTION =====
+async function showResult(){
+
+let isPaid = localStorage.getItem("paidUser");
+
+// ❌ If NOT paid → force payment screen
+if(isPaid !== "yes"){
+unlockApps();
+return;
+}
+
+try{
+
+let url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSpdqK1vK59YwIgtHuYqjrIAmXXLelPIuqFmB4mPMisWlwHZ8ONbdh_YxZ8gu9_XmrC4t5uN0u_atGf/pub?output=csv";
+
+let response = await fetch(url);
+let data = await response.text();
+
+let rows = data.trim().split("\n").map(r => r.split(","));
+
+let d = document.getElementById("disability").value;
+let t = document.getElementById("task").value;
+
+let output = "";
+
+rows.forEach((r, index) => {
+
+if(index === 0) return;
+
+if(r[0].trim().toLowerCase() === d.toLowerCase() &&
+   r[1].trim().toLowerCase() === t.toLowerCase()){
+
+let apps = r.slice(2);
+
+output = "<b>All Apps:</b><br>" + apps.join("<br>");
+
+}
+
+});
+
+if(output==""){
+output="No results found.";
+}
+
+document.getElementById("result").innerHTML = output;
+
+}catch(error){
+
+document.getElementById("result").innerHTML = "Error loading data.";
+console.log(error);
+
+}
+
+}
+
+// ===== VOICE INPUT =====
+function startVoice(){
+
+if (!('webkitSpeechRecognition' in window)) {
+alert("Use Chrome browser");
+return;
+}
+
+const recognition = new webkitSpeechRecognition();
+recognition.lang = "en-IN";
+recognition.start();
+
+document.getElementById("voiceStatus").innerText = "Listening...";
+
+recognition.onresult = function(event){
+
+let speech = event.results[0][0].transcript.toLowerCase();
+
+document.getElementById("voiceStatus").innerText = speech;
+
+if(speech.includes("vision")) document.getElementById("disability").value="Vision";
+if(speech.includes("hearing")) document.getElementById("disability").value="Hearing";
+if(speech.includes("mobility")) document.getElementById("disability").value="Mobility";
+
+if(speech.includes("reading")) document.getElementById("task").value="Reading";
+if(speech.includes("communication")) document.getElementById("task").value="Communication";
+if(speech.includes("navigation")) document.getElementById("task").value="Navigation";
+
+showResult();
+};
+
+}
+
+// ===== VOICE OUTPUT =====
+function speak(text){
+let msg = new SpeechSynthesisUtterance(text);
+msg.lang = "en-IN";
+speechSynthesis.speak(msg);
+}
+function unlockApps(){ 
+
+let qrHTML = `
+<h3>💳 Scan & Pay ₹500</h3>
+
+<img src="qr.png" width="250"><br><br>
+
+<div style="background:#f0f0f0;padding:10px;border-radius:8px;display:inline-block;">
+<b>UPI ID:</b><br>
+pbridgeconsultancyprivatelimited.eazypay@icici
+</div>
+
+<br><br>
+
+<p><b>Enter UTR / Transaction ID:</b></p>
+
+<input type="text" id="utr" placeholder="Enter UTR number" style="padding:8px;width:200px;"><br><br>
+
+<button onclick="verifyPayment()">Verify Payment</button>
+
+<p id="paymentStatus" style="color:red;"></p>
+`;
+
+document.getElementById("result").innerHTML = qrHTML;
+
+}
+function verifyPayment(){
+
+let utr = document.getElementById("utr").value.trim();
+
+// ✅ Basic validation
+if(utr.length < 8){
+document.getElementById("paymentStatus").innerText = "❌ Invalid UTR. Please enter correct ID.";
+return;
+}
+
+// ✅ OPTIONAL: Add your own valid UTR for testing
+if(utr === "TEST12345"){
+confirmPayment();
+return;
+}
+
+// ⚠️ Simulated approval
+document.getElementById("paymentStatus").innerText = "⏳ Verifying payment...";
+
+// Simulate delay
+setTimeout(() => {
+confirmPayment();
+}, 1500);
+
+}
+function confirmPayment(){
+
+// ✅ SAVE PAYMENT STATUS
+localStorage.setItem("paidUser", "yes");
+
+let fullListHTML = "<b>All Apps:</b><br>" + fullAppsList.join("<br>");
+
+document.getElementById("result").innerHTML = fullListHTML;
+
+}
+</script>
+
+</body>
+</html>
