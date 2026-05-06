@@ -166,15 +166,30 @@ showResult();
 function unlockApps(){ 
 
 let qrHTML = `
-<h3>Scan & Pay ₹500</h3>
+<div style="max-width:350px;margin:auto;background:white;padding:20px;border-radius:15px;box-shadow:0 4px 12px rgba(0,0,0,0.2);">
 
-<img src="./qr.png" width="200"><br><br>
+<h2>💳 Complete Payment</h2>
 
-<p>UPI ID: pbridgeconsultancyprivatelimited.eazypay@icici</p>
+<p><b>Amount: ₹500</b></p>
 
-<input type="text" id="utr" placeholder="Enter UTR"><br><br>
+<img src="./qr.png" width="220"><br><br>
 
-<button onclick="submitUTR()">Verify</button>
+<p>Scan using any UPI app</p>
+
+<div style="background:#f1f1f1;padding:10px;border-radius:8px;">
+<b>UPI ID:</b><br>
+pbridgeconsultancyprivatelimited.eazypay@icici
+</div>
+
+<br>
+
+<input type="text" id="utr" placeholder="Enter UTR" style="padding:10px;width:90%;"><br><br>
+
+<button onclick="submitUTR()">Verify Payment</button>
+
+<p id="paymentStatus"></p>
+
+</div>
 `;
 
 document.getElementById("result").innerHTML = qrHTML;
