@@ -78,7 +78,7 @@ async function showResult(){
 
 let isPaid = localStorage.getItem("paidUser");
 
-// 🔒 FORCE PAYMENT FIRST
+// 🔒 NOT PAID → SHOW QR ONLY
 if(isPaid !== "yes"){
 unlockApps();
 return;
@@ -86,7 +86,8 @@ return;
 
 try{
 
-let url = https://docs.google.com/spreadsheets/d/e/2PACX-1vTn-4f1fSZBWvmjwehUBYlrxgYF8lbRqs3dmsTG8mP8rYI1L6wIjpg7ARICCbBChBYayp0YMxhCntPY/pubhtml
+let url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTn-4f1fSZBWvmjwehUBYlrxgYF8lbRqs3dmsTG8mP8rYI1L6wIjpg7ARICCbBChBYayp0YMxhCntPY/pubhtml"; // keep your working link
+
 let response = await fetch(url);
 let data = await response.text();
 
@@ -127,6 +128,7 @@ console.log(error);
 }
 
 }
+
 
 // ===== VOICE INPUT =====
 function startVoice(){
