@@ -136,6 +136,15 @@ if (!('webkitSpeechRecognition' in window)) {
 alert("Use Chrome browser");
 return;
 }
+function speak(text){
+
+let msg = new SpeechSynthesisUtterance(text);
+
+msg.lang = "en-IN";
+
+speechSynthesis.speak(msg);
+
+}
 
 const recognition = new webkitSpeechRecognition();
 recognition.lang = "en-IN";
