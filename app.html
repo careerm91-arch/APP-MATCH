@@ -223,26 +223,61 @@ document.getElementById("paymentStatus").innerText = "❌ Invalid UTR";
 return;
 }
 
-// Show admin instruction
 document.getElementById("result").innerHTML = `
-<h3>⏳ Payment Submitted</h3>
+<div style="
+max-width:350px;
+margin:auto;
+background:white;
+padding:20px;
+border-radius:15px;
+box-shadow:0 4px 12px rgba(0,0,0,0.2);
+">
 
-<p>Your UTR: <b>${utr}</b></p>
+<h3 style="color:#28a745;">✅ Payment Submitted</h3>
 
-<p>📩 Send this UTR to Admin via WhatsApp / Email</p>
+<p>Your UTR:</p>
+<p style="font-weight:bold;">${utr}</p>
 
-<p>After verification, you will receive an approval code</p>
+<p style="font-size:14px;">
+📩 Send this UTR to Admin via WhatsApp
+</p>
 
-<br>
+<a href="https://wa.me/?text=My%20UTR%20is%20${utr}" target="_blank">
+<button style="
+background:#25D366;
+color:white;
+width:100%;
+padding:12px;
+border-radius:8px;
+margin-top:10px;
+">
+📲 Send on WhatsApp
+</button>
+</a>
 
-<input type="text" id="adminCode" placeholder="Enter approval code"><br><br>
+<br><br>
 
-<button onclick="verifyAdminCode()">Verify Code</button>
+<p><b>Enter Approval Code</b></p>
+
+<input type="text" id="adminCode" placeholder="Enter code"
+style="padding:10px;width:90%;border-radius:8px;border:1px solid #ccc;"><br><br>
+
+<button onclick="verifyAdminCode()" style="
+background:#007bff;
+width:100%;
+padding:12px;
+border-radius:8px;
+">
+Unlock Apps
+</button>
 
 <p id="codeStatus" style="color:red;"></p>
+
+</div>
 `;
 
 }
+
    function verifyAdminCode(){
 
 let code = document.getElementById("adminCode").value.trim();
