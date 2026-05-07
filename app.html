@@ -78,8 +78,8 @@ async function showResult(){
 
 let isPaid = localStorage.getItem("paidUser");
 
- 🔒 FORCE PAYMENT FIRST
-if(isPaid !== "yes"){
+// 🔒 FORCE PAYMENT FIRST
+if(isPaid == "yes"){
 unlockApps();
 return;
 }
@@ -137,7 +137,6 @@ alert("Use Chrome browser");
 return;
 }
 
-
 const recognition = new webkitSpeechRecognition();
 recognition.lang = "en-IN";
 recognition.start();
@@ -162,15 +161,7 @@ showResult();
 };
 
 }
-function speak(text){
 
-let msg = new SpeechSynthesisUtterance(text);
-
-msg.lang = "en-IN";
-
-speechSynthesis.speak(msg);
-
-}
 // ===== PAYMENT SCREEN =====
 function unlockApps(){ 
 
@@ -260,18 +251,17 @@ let code = document.getElementById("adminCode").value.trim();
 if(code === "APPROVE123"){
 
 localStorage.setItem("paidUser", "yes");
-// ✅ RUN APP FUNCTION
+
 showPaidApps();
+"<h2>✅ Apps Unlocked</h2><br>All Apps Here";//showResult();
 
 }else{
 
-document.getElementById("codeStatus").innerText =
-"❌ Invalid approval code";
+document.getElementById("codeStatus").innerText = "❌ Invalid approval code";
 
 }
 
 }
-
   // function verifyAdminCode(){
 
 //let code = document.getElementById("adminCode").value.trim();
@@ -302,12 +292,9 @@ document.getElementById("codeStatus").innerText =
 //}
 async function showPaidApps(){
 
-try{
-
-let url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTn-4f1fSZBWvmjwehUBYlrxgYF8lbRqs3dmsTG8mP8rYI1L6wIjpg7ARICCbBChBYayp0YMxhCntPY/pub?output=csv";
+let url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSpdqK1vK59YwIgtHuYqjrIAmXXLelPIuqFmB4mPMisWlwHZ8ONbdh_YxZ8gu9_XmrC4t5uN0u_atGf/pub?output=csv";
 
 let response = await fetch(url);
-
 let data = await response.text();
 
 let rows = data.trim().split("\n").map(r => r.split(","));
@@ -336,21 +323,9 @@ output += apps.join("<br>");
 
 document.getElementById("result").innerHTML = output;
 
-speak("Apps loaded successfully");
-
-}catch(error){
-
-document.getElementById("result").innerHTML =
-"❌ Error loading apps";
-
-console.log(error);
-
-}
-
 }
 
 </script>
 
 </body>
 </html>
-
