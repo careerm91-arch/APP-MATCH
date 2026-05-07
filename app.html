@@ -260,17 +260,18 @@ let code = document.getElementById("adminCode").value.trim();
 if(code === "APPROVE123"){
 
 localStorage.setItem("paidUser", "yes");
-
-
-"<h2>✅ Apps Unlocked</h2><br>All Apps Here";//showResult();
+// ✅ RUN APP FUNCTION
+showPaidApps();
 
 }else{
 
-document.getElementById("codeStatus").innerText = "❌ Invalid approval code";
+document.getElementById("codeStatus").innerText =
+"❌ Invalid approval code";
 
 }
 
 }
+
   // function verifyAdminCode(){
 
 //let code = document.getElementById("adminCode").value.trim();
@@ -301,7 +302,7 @@ document.getElementById("codeStatus").innerText = "❌ Invalid approval code";
 //}
 async function showPaidApps(){
 
-let url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSpdqK1vK59YwIgtHuYqjrIAmXXLelPIuqFmB4mPMisWlwHZ8ONbdh_YxZ8gu9_XmrC4t5uN0u_atGf/pub?output=csv";
+let url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTn-4f1fSZBWvmjwehUBYlrxgYF8lbRqs3dmsTG8mP8rYI1L6wIjpg7ARICCbBChBYayp0YMxhCntPY/pubhtml";
 
 let response = await fetch(url);
 let data = await response.text();
@@ -333,7 +334,16 @@ output += apps.join("<br>");
 document.getElementById("result").innerHTML = output;
 speak("Apps loaded successfully");
 }
+}catch(error){
 
+document.getElementById("result").innerHTML =
+"❌ Error loading apps";
+
+console.log(error);
+
+}
+
+}
 </script>
 
 </body>
