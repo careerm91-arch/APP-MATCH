@@ -243,25 +243,56 @@ document.getElementById("result").innerHTML = `
 `;
 
 }
+//   function verifyAdminCode(){
+
+//let code = document.getElementById("adminCode").value.trim();
+
+/// ✅ YOU control this code
+//if(code === "APPROVE123"){
+
+//localStorage.setItem("paidUser", "yes");
+
+//document.getElementById("result").innerHTML =
+//"<h2>✅ Apps Unlocked</h2><br>All Apps Here";//showResult();
+
+//}else{
+
+//document.getElementById("codeStatus").innerText = "❌ Invalid approval code";
+
+//}
+
+//}
    function verifyAdminCode(){
 
 let code = document.getElementById("adminCode").value.trim();
 
-// ✅ YOU control this code
 if(code === "APPROVE123"){
 
 localStorage.setItem("paidUser", "yes");
 
-document.getElementById("result").innerHTML =
-"<h2>✅ Apps Unlocked</h2><br>All Apps Here";//showResult();
+// DIRECTLY SHOW APPS
+document.getElementById("result").innerHTML = `
+
+<h2>✅ Apps Unlocked</h2>
+
+<b>All Apps:</b><br><br>
+
+1. Seeing AI<br>
+2. Be My Eyes<br>
+3. Google Lookout<br>
+4. Ava<br>
+5. Voice Access
+   `;
 
 }else{
 
-document.getElementById("codeStatus").innerText = "❌ Invalid approval code";
+document.getElementById("codeStatus").innerText =
+"❌ Invalid approval code";
 
 }
 
 }
+
 </script>
 
 </body>
