@@ -252,7 +252,7 @@ if(code === "APPROVE123"){
 
 localStorage.setItem("paidUser", "yes");
 
-showPaidApps();
+
 "<h2>✅ Apps Unlocked</h2><br>All Apps Here";//showResult();
 
 }else{
@@ -303,7 +303,7 @@ let d = document.getElementById("disability").value;
 let t = document.getElementById("task").value;
 
 let output = "<h2>✅ Apps Unlocked</h2><br>";
-speak("Apps loaded successfully");
+
 rows.forEach((r,index)=>{
 
 if(index===0) return;
@@ -322,7 +322,7 @@ output += apps.join("<br>");
 });
 
 document.getElementById("result").innerHTML = output;
-
+speak("Apps loaded successfully");
 }
 
 </script>
