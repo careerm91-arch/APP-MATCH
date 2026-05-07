@@ -166,56 +166,23 @@ showResult();
 function unlockApps(){ 
 
 let qrHTML = `
-<div style="
-max-width:350px;
-margin:auto;
-background:white;
-padding:20px;
-border-radius:15px;
-box-shadow:0 4px 12px rgba(0,0,0,0.2);
-">
+<h3>💳 Scan & Pay ₹500</h3>
 
-<h2 style="color:#333;">💳 Complete Payment</h2>
+<img src="qr.png" width="250"><br><br>
 
-<p style="font-size:18px;"><b>Amount: ₹500</b></p>
-
-<img src="qr.png" width="220" style="margin:10px 0;"><br>
-
-<p style="font-size:14px;color:#555;">
-Scan using any UPI app (GPay, PhonePe, Paytm)
-</p>
-
-<div style="
-background:#f1f1f1;
-padding:10px;
-border-radius:8px;
-margin-top:10px;
-font-size:14px;
-">
+<div style="background:#f0f0f0;padding:10px;border-radius:8px;display:inline-block;">
 <b>UPI ID:</b><br>
 pbridgeconsultancyprivatelimited.eazypay@icici
 </div>
 
-<br>
+<br><br>
 
-<p style="font-size:14px;"><b>Enter UTR / Transaction ID</b></p>
+<p><b>Enter UTR:</b></p>
+<input type="text" id="utr" placeholder="Enter UTR"><br><br>
 
-<input type="text" id="utr" placeholder="Enter UTR"
-style="padding:10px;width:90%;border-radius:8px;border:1px solid #ccc;"><br><br>
+<button onclick="submitUTR()">Submit Payment</button>
 
-<button onclick="submitUTR()" style="
-background:#28a745;
-width:100%;
-padding:12px;
-font-size:16px;
-border-radius:8px;
-">
-Verify Payment
-</button>
-
-<p id="paymentStatus" style="color:red;margin-top:10px;"></p>
-
-</div>
+<p id="paymentStatus" style="color:red;"></p>
 `;
 
 document.getElementById("result").innerHTML = qrHTML;
