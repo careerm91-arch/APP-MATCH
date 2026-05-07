@@ -243,22 +243,7 @@ setTimeout(showResult, 1000);
 
 <script>
 
-// ===== SHOW RESULT =====
-async function showResult(){
 
-let isPaid = localStorage.getItem("paidUser");
-
-// 🔒 NOT PAID → SHOW QR
-if(isPaid !== "yes"){
-unlockApps();
-return;
-}
-
-// ✅ IF PAID → SHOW SAMPLE DATA (for now)
-document.getElementById("result").innerHTML =
-"<b>All Apps:</b><br>App1<br>App2<br>App3";
-
-}
 
 // ===== PAYMENT SCREEN =====
 function unlockApps(){ 
