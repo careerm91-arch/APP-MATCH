@@ -153,15 +153,7 @@ if (!('webkitSpeechRecognition' in window)) {
 alert("Use Chrome browser");
 return;
 }
-function speak(text){
 
-let msg = new SpeechSynthesisUtterance(text);
-
-msg.lang = "en-IN";
-
-speechSynthesis.speak(msg);
-
-}
 
 const recognition = new webkitSpeechRecognition();
 recognition.lang = "en-IN";
@@ -187,7 +179,15 @@ showResult();
 };
 
 }
+function speak(text){
 
+let msg = new SpeechSynthesisUtterance(text);
+
+msg.lang = "en-IN";
+
+speechSynthesis.speak(msg);
+
+}
 // ===== PAYMENT SCREEN =====
 function unlockApps(){ 
 
@@ -319,9 +319,12 @@ document.getElementById("codeStatus").innerText =
 //}
 async function showPaidApps(){
 
-let url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTn-4f1fSZBWvmjwehUBYlrxgYF8lbRqs3dmsTG8mP8rYI1L6wIjpg7ARICCbBChBYayp0YMxhCntPY/pubhtml";
+try{
+
+let url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTn-4f1fSZBWvmjwehUBYlrxgYF8lbRqs3dmsTG8mP8rYI1L6wIjpg7ARICCbBChBYayp0YMxhCntPY/pub?output=csv";
 
 let response = await fetch(url);
+
 let data = await response.text();
 
 let rows = data.trim().split("\n").map(r => r.split(","));
@@ -349,8 +352,9 @@ output += apps.join("<br>");
 });
 
 document.getElementById("result").innerHTML = output;
+
 speak("Apps loaded successfully");
-}
+
 }catch(error){
 
 document.getElementById("result").innerHTML =
@@ -361,6 +365,7 @@ console.log(error);
 }
 
 }
+
 </script>
 
 </body>
