@@ -79,7 +79,7 @@ async function showResult(){
 let isPaid = localStorage.getItem("paidUser");
 
 // 🔒 FORCE PAYMENT FIRST
-if(isPaid == "yes"){
+if(isPaid === "yes"){
 unlockApps();
 return;
 }
@@ -317,7 +317,7 @@ Unlock Apps
 let code = document.getElementById("adminCode").value.trim();
 
 // ✅ YOU control this code
-if(code == "APPROVE123"){
+if(code === "APPROVE123"){
 
 localStorage.setItem("paidUser", "yes");
 
