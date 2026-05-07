@@ -133,7 +133,7 @@ async function showResult(){
 let isPaid = localStorage.getItem("paidUser");
 
 // 🔒 IF NOT PAID → SHOW QR SCREEN
-if(isPaid !== "yes"){
+if(isPaid === "yes"){
 
 unlockApps();
 
