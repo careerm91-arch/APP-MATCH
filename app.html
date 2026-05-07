@@ -128,6 +128,15 @@ console.log(error);
 }
 
 }
+function speak(text){
+
+let msg = new SpeechSynthesisUtterance(text);
+
+msg.lang = "en-IN";
+
+speechSynthesis.speak(msg);
+
+}
 
 // ===== VOICE INPUT =====
 function startVoice(){
