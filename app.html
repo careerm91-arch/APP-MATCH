@@ -77,9 +77,9 @@ let fullAppsList = [];
 async function showResult(){
 
 let isPaid = localStorage.getItem("paidUser");
-unlockApps();
-// 🔒 FORCE PAYMENT FIRST
-/*if(isPaid !== "yes"){
+
+ 🔒 FORCE PAYMENT FIRST
+if(isPaid !== "yes"){
 unlockApps();
 return;
 }
@@ -127,7 +127,7 @@ console.log(error);
 
 }
 
-}*/
+}
 
 // ===== VOICE INPUT =====
 function startVoice(){
