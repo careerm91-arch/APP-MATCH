@@ -74,58 +74,75 @@ border-radius:10px;
 let fullAppsList = [];
 
 // ===== RESULT FUNCTION =====
+//async function showResult(){
+
+//let isPaid = localStorage.getItem("paidUser");
+
+/// 🔒 FORCE PAYMENT FIRST
+//if(isPaid !== "yes"){
+//unlockApps();
+//return;
+//}
+
+//try{
+
+//let url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSpdqK1vK59YwIgtHuYqjrIAmXXLelPIuqFmB4mPMisWlwHZ8ONbdh_YxZ8gu9_XmrC4t5uN0u_atGf/pub?output=csv";
+
+//let response = await fetch(url);
+//let data = await response.text();
+
+//let rows = data.trim().split("\n").map(r => r.split(","));
+
+//let d = document.getElementById("disability").value;
+//let t = document.getElementById("task").value;
+
+//let output = "";
+
+//rows.forEach((r, index) => {
+
+//if(index === 0) return;
+
+//if(r[0].trim().toLowerCase() === d.toLowerCase() &&
+//   r[1].trim().toLowerCase() === t.toLowerCase()){
+
+//let apps = r.slice(2);
+//fullAppsList = apps;
+
+//output = "<b>All Apps:</b><br>" + apps.join("<br>");
+
+//}
+
+//});
+
+//if(output==""){
+//output="No results found.";
+//}
+
+//document.getElementById("result").innerHTML = output;
+
+//}catch(error){
+
+//document.getElementById("result").innerHTML = "Error loading data.";
+//console.log(error);
+
+//}
+
+//}
 async function showResult(){
 
 let isPaid = localStorage.getItem("paidUser");
 
-// 🔒 FORCE PAYMENT FIRST
+// 🔒 IF NOT PAID → SHOW QR SCREEN
 if(isPaid !== "yes"){
+
 unlockApps();
+
 return;
-}
-
-try{
-
-let url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSpdqK1vK59YwIgtHuYqjrIAmXXLelPIuqFmB4mPMisWlwHZ8ONbdh_YxZ8gu9_XmrC4t5uN0u_atGf/pub?output=csv";
-
-let response = await fetch(url);
-let data = await response.text();
-
-let rows = data.trim().split("\n").map(r => r.split(","));
-
-let d = document.getElementById("disability").value;
-let t = document.getElementById("task").value;
-
-let output = "";
-
-rows.forEach((r, index) => {
-
-if(index === 0) return;
-
-if(r[0].trim().toLowerCase() === d.toLowerCase() &&
-   r[1].trim().toLowerCase() === t.toLowerCase()){
-
-let apps = r.slice(2);
-fullAppsList = apps;
-
-output = "<b>All Apps:</b><br>" + apps.join("<br>");
 
 }
 
-});
-
-if(output==""){
-output="No results found.";
-}
-
-document.getElementById("result").innerHTML = output;
-
-}catch(error){
-
-document.getElementById("result").innerHTML = "Error loading data.";
-console.log(error);
-
-}
+// ✅ IF PAID → SHOW APPS
+showPaidApps();
 
 }
 
