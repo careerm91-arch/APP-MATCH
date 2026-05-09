@@ -141,7 +141,90 @@ msg.lang = "en-IN";
 speechSynthesis.speak(msg);
 
 }
+function startVoice(){
 
+// CHECK SUPPORT
+
+if(
+!('webkitSpeechRecognition' in window)
+){
+
+document.getElementById("voiceStatus")
+.innerHTML =
+"❌ Voice input not supported on this device/app.<br><br>Please use dropdown menus.";
+
+return;
+
+}
+
+const recognition =
+new webkitSpeechRecognition();
+
+recognition.lang = "en-IN";
+
+recognition.start();
+
+document.getElementById("voiceStatus")
+.innerText = "🎤 Listening...";
+
+recognition.onresult = function(event){
+
+let speech =
+event.results[0][0].transcript.toLowerCase();
+
+document.getElementById("voiceStatus")
+.innerText = "You said: " + speech;
+
+if(speech.includes("vision"))
+document.getElementById("disability").value =
+"Vision";
+
+if(speech.includes("hearing"))
+document.getElementById("disability").value =
+"Hearing";
+
+if(speech.includes("mobility"))
+document.getElementById("disability").value =
+"Mobility";
+
+if(speech.includes("speech"))
+document.getElementById("disability").value =
+"Speech";
+
+if(speech.includes("cognitive"))
+document.getElementById("disability").value =
+"Cognitive";
+
+if(speech.includes("reading"))
+document.getElementById("task").value =
+"Reading";
+
+if(speech.includes("communication"))
+document.getElementById("task").value =
+"Communication";
+
+if(speech.includes("navigation"))
+document.getElementById("task").value =
+"Navigation";
+
+if(speech.includes("learning"))
+document.getElementById("task").value =
+"Learning";
+
+showApps();
+
+};
+
+recognition.onerror = function(){
+
+document.getElementById("voiceStatus")
+.innerText =
+"❌ Voice recognition failed.";
+
+};
+
+}
+/*
 // ===== VOICE INPUT =====
 function startVoice(){
 
@@ -174,7 +257,7 @@ showResult();
 };
 
 }
-
+*/
 // ===== PAYMENT SCREEN =====
 function unlockApps(){ 
 
